@@ -262,19 +262,56 @@ h1 {
   transform: scale(0.97);
 }
 
+@media (min-width: 992px) {
+  .hero-row {
+    min-height: calc(100vh - 5.5rem);
+    align-items: stretch;
+  }
+
+  .hero-video-col {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .hero-scene {
   width: 100%;
-  max-width: 480px;
+  max-width: 400px;
   margin-inline: auto;
-  background: #fff;
+  margin-top: 0.5rem;
+  background: transparent;
   border-radius: var(--gk-radius);
-  box-shadow: var(--gk-shadow-sheet);
-  overflow: hidden;
+  overflow: visible;
   will-change: transform;
+}
+
+@media (max-width: 991.98px) {
+  .hero-scene {
+    width: 100%;
+    max-width: none;
+  }
+
+  .hero-scene app-fiado-hero-loop {
+    width: 100%;
+  }
+}
+
+@media (min-width: 992px) {
+  .hero-scene {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    max-width: none;
+    height: 100%;
+    min-height: 100%;
+    margin-inline: 0;
+  }
 }
 
 .hero-scene app-fiado-hero-loop {
   display: block;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 
 .panel {
