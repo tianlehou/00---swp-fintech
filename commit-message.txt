@@ -1,7 +1,5 @@
-v1.00.002 2026-11-22 10h:23m fix(vercel): build en Vercel y environments en repo
+v1.00.003 2026-11-22 10h:29m style(landing): quitar aviso de prototipo en monetización
 
 Lista de cambios:
-- vercel.json con installCommand, salida browser e index.csr.html
-- Script de build con ruta explícita al CLI de Angular y Node >= 20
-- environment.ts y environment.prod.ts sin secretos para el build de producción
-- Versión v1.00.002 en APP_VERSION y public/app-version.json
+- Eliminado el párrafo de disclaimer bajo la sección de ingresos
+- Removidos estilos .prototype-note sin uso
