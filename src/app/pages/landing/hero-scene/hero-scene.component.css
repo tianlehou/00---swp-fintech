@@ -1,0 +1,164 @@
+:host {
+  --dur: 7s;
+}
+
+@keyframes hero-w-nod {
+  0%,
+  12%,
+  30%,
+  58%,
+  76%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  20% {
+    transform: rotate(3deg);
+  }
+
+  66% {
+    transform: rotate(-2.5deg);
+  }
+}
+
+@keyframes hero-tap {
+  0%,
+  10%,
+  18%,
+  26%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  14%,
+  22% {
+    transform: translate(3px, -3px) rotate(-2deg);
+  }
+
+  40%,
+  52% {
+    transform: translate(6px, 2px) rotate(3deg);
+  }
+
+  70%,
+  84% {
+    transform: translate(4px, -5px) rotate(-3deg);
+  }
+}
+
+@keyframes hero-note-pop {
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  4% {
+    transform: scale(1.18) rotate(-4deg);
+  }
+
+  9% {
+    transform: scale(0.96) rotate(1deg);
+  }
+
+  13% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes hero-c-look {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  30%,
+  48% {
+    transform: rotate(-3deg);
+  }
+
+  62%,
+  80% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes hero-g-tilt {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  40%,
+  58% {
+    transform: rotate(2.5deg);
+  }
+
+  74% {
+    transform: rotate(-1.5deg);
+  }
+}
+
+@keyframes hero-m-nod {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  66% {
+    transform: rotate(3deg);
+  }
+
+  72% {
+    transform: rotate(-1deg);
+  }
+
+  78% {
+    transform: rotate(2deg);
+  }
+
+  84% {
+    transform: rotate(0deg);
+  }
+}
+
+.hero-w-head {
+  transform-origin: 215px 355px;
+  animation: hero-w-nod var(--dur) ease-in-out infinite both;
+}
+
+.hero-w-arm {
+  transform-origin: 305px 368px;
+  animation: hero-tap var(--dur) ease-in-out infinite both;
+}
+
+.hero-note {
+  animation: hero-note-pop var(--dur) var(--gk-ease-out, ease-out) infinite both;
+}
+
+.hero-note--b {
+  animation-delay: calc(var(--dur) * 0.1);
+}
+
+.hero-note--c {
+  animation-delay: calc(var(--dur) * 0.42);
+}
+
+.hero-note--a {
+  animation-delay: calc(var(--dur) * 0.72);
+}
+
+.hero-c-head {
+  transform-origin: 322px 536px;
+  animation: hero-c-look var(--dur) ease-in-out infinite both;
+}
+
+.hero-g-head {
+  transform-origin: 670px 610px;
+  animation: hero-g-tilt var(--dur) ease-in-out infinite both;
+}
+
+.hero-m-head {
+  transform-origin: 872px 533px;
+  animation: hero-m-nod var(--dur) ease-in-out infinite both;
+}

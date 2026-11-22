@@ -1,0 +1,105 @@
+---
+description: Al crear o editar un modal, componente hijo de su página, 480px, cabecera, cuerpo con scroll y pie. Errores en rojo debajo de cada campo.
+alwaysApply: false
+---
+
+# Modal
+
+Todo modal nuevo es un componente hijo de la página que lo abre y usa `<dialog>` con esta estructura. La referencia viva es `src/app/pages/home/create-sala-modal/`.
+
+## Reglas
+
+- Es un **componente hijo** de su página. Vive en la carpeta de esa página (`src/app/pages/<página>/<modal>/`). El `<dialog>` no va en el template del padre.
+- El padre solo lo declara y lo abre. Si varias páginas lo usan, entonces sí puede estar en `shared`.
+- Ancho máximo **480px**. En pantallas estrechas, `min(480px, calc(100vw - 2rem))`.
+- Tres zonas: **header**, **cuerpo** y **footer**.
+- Cabecera y pie usan fondo `--gk-paper-deep`. El cuerpo queda en blanco, para que las tres zonas se distingan a simple vista.
+- El scroll va solo en el cuerpo. El diálogo y el panel no se desplazan (`overflow: hidden`).
+- El cuerpo tiene `overflow-y: auto`, `min-height: 0` y `overscroll-behavior: contain`.
+- El scroll del cuerpo usa la barra global delgada. No copies estilos de scrollbar en el modal: viven en `src/styles.css` (regla `scrollbar.mdc`).
+- No dupliques **Cancelar** / **Cerrar** en el pie si el header ya tiene `<app-ui-close-button />`; la X del header basta.
+- Si el pie tiene **un solo** botón de acción, ocupa **todo el ancho** (`composer-actions--solo` en salas, `actions--solo` en confirmación).
+- Si hay **dos** acciones distintas (p. ej. confirmar y rechazar), ocupan **50/50** (`flex: 1 1 0`), sin pasar a otra línea. En hover suben **2px** (`translateY(-2px)`).
+- Toda transición es **`all 0.3s ease`**.
+- El botón de cerrar del header es el componente compartido `<app-ui-close-button (closed)="close()" />` (`src/app/shared/components/ui-close-button/`). En hover gira **90°**. La página solo lo posiciona, sin redefinir su estilo.
+- La altura del panel no pasa de `calc(100dvh - 2rem)`, para que el cuerpo pueda scrollear sin mover cabecera ni pie.
+- Los botones de acción muestran anillo de teclado en `:focus-visible`: `outline: 2px solid var(--gk-teal-ink)` y `outline-offset: 3px`.
+
+## Errores
+
+No hay franja de error entre la cabecera y el cuerpo. El aviso va en rojo (`--gk-danger`), debajo del control, con el borde del campo en el mismo color.
+
+- Si faltan varios campos, se marcan **todos** a la vez. El foco va al primero.
+- Cada aviso usa `role="alert"`, `aria-invalid` y `aria-describedby` hacia `id` del campo + `-error`.
+- Al editar un campo, se quita solo el aviso de ese campo.
+- Usar `FieldIssues` (`src/app/shared/forms/field-issues.ts`): `show` para campos, `showLoose` si el fallo no es de un campo (guardar, borrar, cargar). Ese texto es una línea `.field-error` con `data-loose-error`, junto a la acción.
+- Foto, logo o imagen: el mensaje entra por `[error]` de `app-ui-image-field` y se ve bajo ese control.
+- Si hay una imagen (la vista previa o una ya guardada), al pulsarla se abre `app-photo-lightbox` por encima del diálogo (`aboveDialog`). Escape cierra el visor y deja el modal abierto.
+- No repetir el mismo aviso en un toast. El toast queda para el resultado, cuando el modal ya se cerró.
+
+```html
+<input
+  id="sala-nombre"
+  [attr.aria-invalid]="issues.fields()['sala-nombre'] ? true : null"
+  [attr.aria-describedby]="issues.fields()['sala-nombre'] ? 'sala-nombre-error' : null"
+/>
+@if (issues.fields()['sala-nombre']; as message) {
+  <p class="field-error" id="sala-nombre-error" role="alert">{{ message }}</p>
+}
+```
+
+## Estructura
+
+```html
+<dialog class="sala-dialog">
+  <form class="sala-panel">
+    <header class="sala-header">…título y cerrar…</header>
+    <div class="sala-body">…campos…</div>
+    <footer class="sala-footer">…acciones…</footer>
+  </form>
+</dialog>
+```
+
+```css
+.sala-dialog {
+  width: min(480px, calc(100vw - 2rem));
+  max-width: 480px;
+  max-height: calc(100dvh - 2rem);
+  overflow: hidden;
+}
+
+.sala-panel {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 2rem);
+  overflow: hidden;
+}
+
+.sala-header,
+.sala-footer {
+  flex: 0 0 auto;
+  background: var(--gk-paper-deep);
+}
+
+.sala-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.sala-footer .actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.sala-footer .actions > * {
+  flex: 1 1 0;
+  min-width: 0;
+  transition: all 0.3s ease;
+}
+
+.sala-footer .actions > *:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+```

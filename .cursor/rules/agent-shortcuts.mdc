@@ -1,0 +1,27 @@
+---
+description: Atajos gp, gpsquash y cleangit (publicar, squash y limpiar ramas)
+alwaysApply: true
+---
+
+# Atajos de Skills
+
+Cuando el usuario envíe solo estos atajos, interpretarlos así:
+
+- `gp`:
+  - Ejecutar el flujo del skill `github-publisher` (`.cursor/skills/github-publisher/SKILL.md`).
+  - Revisar staged changes, proponer/actualizar `commit-message.txt` y continuar con flujo GitHub según indique el usuario.
+  - Si `environment` aparece en staged, quitarlo de staged y dejarlo en Changes (sin discard).
+  - **Obligatorio antes de cualquier `git push`:** regla `github-gp.mdc` / memoria `github-gp.md` (rama = la del checkout actual, un solo commit, sin publicar a medias ni en una segunda rama, author/committer = `git config` del usuario — nunca `cursoragent`, sin mención de Cursor).
+
+- `gpsquash`:
+  - Ejecutar el flujo del skill `github-publisher-squash` (`.cursor/skills/github-publisher-squash/SKILL.md`).
+  - Cierre: merge `--no-ff` agent-work→squash-zone (`Join_sz`) + merge `--no-ff` squash-zone→main (`Join_main`); **sin** commit `S` salvo fallback (merge conflictúa o árboles divergentes).
+  - `agent-work` **sigue granular** (merge de main encima; **no** reset hard a main).
+  - **Prohibido** commits o tags de backup (`backup/squash-*`, `backup/agent-block-*`).
+  - Memoria: `.cursor/memory/github-gpsquash.md`. Confirmar rango antes de merge/force.
+
+- `cleangit`:
+  - Ejecutar el flujo del skill `github-cleangit` (`.cursor/skills/github-cleangit/SKILL.md`).
+  - Borrar ramas secundarias en `origin` (y locales huérfanas); **nunca** `main`, `squash-zone` ni `cursor/agent-work`.
+  - Mostrar lista previa y **pedir confirmación** antes de cualquier `git push origin --delete`.
+  - Memoria: `.cursor/memory/github-cleangit.md`.

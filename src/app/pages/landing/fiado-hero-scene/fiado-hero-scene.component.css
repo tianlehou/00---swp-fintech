@@ -1,0 +1,87 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.fiado-scene {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 16px 32px rgba(31, 58, 52, 0.12));
+}
+
+.sheet {
+  fill: #fff;
+}
+
+.shelf {
+  fill: color-mix(in srgb, var(--gk-paper-deep) 70%, #fff);
+  stroke: var(--gk-line);
+  stroke-width: 2;
+}
+
+.shelf-row {
+  fill: rgba(31, 58, 52, 0.1);
+}
+
+.register {
+  fill: var(--gk-accent);
+  opacity: 0.85;
+}
+
+.person-head {
+  fill: #f5c9a8;
+  stroke: var(--gk-ink);
+  stroke-width: 2;
+}
+
+.person-body {
+  fill: var(--gk-teal);
+  opacity: 0.9;
+  stroke: var(--gk-teal-ink);
+  stroke-width: 2;
+}
+
+.phone-shell {
+  fill: var(--gk-ink);
+}
+
+.phone-screen {
+  fill: var(--gk-paper);
+}
+
+.screen-label {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  fill: var(--gk-ink);
+}
+
+.field {
+  fill: #fff;
+  stroke: var(--gk-line);
+  stroke-width: 1.5;
+}
+
+.cta {
+  fill: var(--gk-accent);
+}
+
+.cta-label {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 700;
+  fill: #fff;
+}
+
+.wa-bubble {
+  fill: #dcf8c6;
+  stroke: #7ad06d;
+  stroke-width: 1.5;
+}
+
+.wa-text {
+  font-family: var(--font);
+  font-size: 11px;
+  fill: #1a3b2a;
+}

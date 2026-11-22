@@ -1,0 +1,203 @@
+<app-landing-header />
+
+<main>
+  <section
+    class="hero"
+    data-landing-panel
+    data-landing-hero
+    [style.--hero-count]="heroCharCount"
+  >
+    <div class="page">
+      <div class="row align-items-center gx-4 gy-5 gx-lg-5">
+        <div class="col-lg-7">
+          <p class="hero-eyebrow motion-rise">App + bot de WhatsApp · Panamá</p>
+          <h1 [attr.aria-label]="heroTitleLabel">
+            @for (line of heroTitle; track $index; let lastLine = $last) {
+              <span class="kin-line" aria-hidden="true">
+                @for (word of line; track $index; let lastWord = $last) {
+                  <span class="kin-word" [class.is-accent]="word.accent">
+                    @for (glyph of word.chars; track glyph.i) {
+                      <span
+                        class="kin-char motion-drop"
+                        [style.--motion-i]="glyph.i"
+                        [style.--tilt]="glyph.tilt + 'deg'"
+                        >{{ glyph.text }}</span
+                      >
+                    }
+                    @if (word.underline) {
+                      <svg class="kin-underline" viewBox="0 0 200 14" preserveAspectRatio="none">
+                        <path class="motion-ink" pathLength="1" d="M3 9 C 52 4, 124 2, 197 7" />
+                      </svg>
+                    }
+                    @if (lastLine && lastWord) {
+                      <span class="hero-dot motion-ball"></span>
+                    }
+                  </span>
+                  {{ lastWord ? '' : ' ' }}
+                }
+              </span>
+            }
+          </h1>
+          <p class="lead motion-rise motion-d1">
+            Fiado Digital ayuda a bodegas y tiendas de barrio a registrar el fiado, cobrarlo a
+            tiempo y usar ese historial para acceder a crédito.
+          </p>
+          <div class="hero-actions motion-spring motion-d2">
+            <button type="button" class="hero-cta" (click)="scrollToComo()">
+              Ver cómo funciona
+            </button>
+            <span class="hero-note motion-note" aria-hidden="true">
+              <svg class="hero-note-arrow" viewBox="0 0 48 28">
+                <path
+                  class="motion-ink"
+                  pathLength="1"
+                  d="M42 25 C 26 25, 12 18, 8 4 M8 4 L 4 12 M8 4 L 15 9"
+                />
+              </svg>
+              prototipo de pitch
+            </span>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <figure class="hero-scene motion-spring motion-d3">
+            <app-fiado-hero-scene />
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="como" class="panel" data-landing-panel>
+    <div class="page">
+      <h2 [attr.aria-label]="sectionTitle.como">
+        @for (word of sectionWords.como; track word.i; let last = $last) {
+          <span
+            class="kin-word motion-word"
+            aria-hidden="true"
+            [style.--motion-i]="word.i"
+            [style.--tilt]="word.tilt + 'deg'"
+            >{{ word.text }}</span
+          >{{ last ? '' : ' ' }}
+        }
+      </h2>
+      <div class="steps-track">
+        <span aria-hidden="true" class="steps-rail motion-draw"></span>
+        <ol class="steps row g-4 list-unstyled steps-five">
+          @for (step of steps; track step.index; let i = $index) {
+            <li class="col-md-6 col-xl-4 motion-stagger" [style.--motion-i]="i">
+              <article class="step">
+                <span class="step-tick motion-snap" aria-hidden="true" [style.--motion-i]="i"></span>
+                <div class="step-head">
+                  <span class="step-mark motion-mark" aria-hidden="true">{{ step.index }}</span>
+                  <h3 class="motion-snap step-title">{{ step.title }}</h3>
+                </div>
+                <ul class="step-list">
+                  @for (item of step.bullets; track item) {
+                    <li>{{ item }}</li>
+                  }
+                </ul>
+              </article>
+            </li>
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel panel-deep" data-landing-panel>
+    <div class="page panel-deep-content">
+      <div class="panel-deep-grid panel-deep-grid--fiado">
+        <div class="panel-deep-copy">
+          <h2 [attr.aria-label]="sectionTitle.problema">
+            @for (word of sectionWords.problema; track word.i; let last = $last) {
+              <span
+                class="kin-word motion-word"
+                aria-hidden="true"
+                [style.--motion-i]="word.i"
+                [style.--tilt]="word.tilt + 'deg'"
+                >{{ word.text }}</span
+              >{{ last ? '' : ' ' }}
+            }
+          </h2>
+          <p class="section-lead motion-rise motion-d1">
+            El fiado vive en una libreta: se olvida, da pena cobrarlo y deja plata atrapada. Ningún
+            banco ve ese historial, así que la tienda no califica para crédito formal.
+          </p>
+          <ul class="craft-roster motion-rise motion-d2">
+            <li class="craft-roster__item">
+              <span class="craft-roster__tag">Libreta</span>
+              <p class="craft-roster__text">Solo gestión. El dinero no se mueve ni deja datos útiles.</p>
+            </li>
+            <li class="craft-roster__item">
+              <span class="craft-roster__tag">Fiado Digital</span>
+              <p class="craft-roster__text">
+                Cobro con Yappy, recordatorios y historial que habilita crédito con un aliado
+                regulado.
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="panel-deep-stage motion-spring motion-d2">
+          <blockquote class="fiado-quote">
+            <p class="motion-rise">{{ tagline }}</p>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" data-landing-panel>
+    <div class="page">
+      <h2 [attr.aria-label]="sectionTitle.modelo">
+        @for (word of sectionWords.modelo; track word.i; let last = $last) {
+          <span
+            class="kin-word motion-word"
+            aria-hidden="true"
+            [style.--motion-i]="word.i"
+            [style.--tilt]="word.tilt + 'deg'"
+            >{{ word.text }}</span
+          >{{ last ? '' : ' ' }}
+        }
+      </h2>
+      <ul class="revenue-grid motion-rise motion-d1">
+        @for (pillar of revenuePillars; track pillar.label; let i = $index) {
+          <li class="revenue-card motion-stagger" [style.--motion-i]="i">
+            <h3>{{ pillar.label }}</h3>
+            <p>{{ pillar.detail }}</p>
+          </li>
+        }
+      </ul>
+      <p class="prototype-note motion-rise motion-d2">
+        Prototipo basado en <code>resumen.md</code>. Sin integraciones reales de WhatsApp, Yappy ni
+        financiera en esta versión.
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" data-landing-panel>
+  <div class="page site-footer-inner">
+    <header class="footer-head">
+      <div class="footer-brand-stack motion-spring">
+        <p class="brand-name footer-brand-name mb-0">
+          Fiado <span class="brand-accent">Digital</span>
+        </p>
+        <p class="brand-slogan footer-slogan mb-0">Cobrá lo que te deben</p>
+      </div>
+      <span class="footer-accent motion-draw" aria-hidden="true"></span>
+      <p class="footer-lead motion-rise motion-d1">{{ tagline }}</p>
+    </header>
+    <p class="footer-copy mb-0 motion-rise motion-d2">© 2026 Fiado Digital. Prototipo interno.</p>
+    <p class="footer-version mb-0 motion-rise motion-d3">{{ appVersion }}</p>
+  </div>
+</footer>
+
+<button
+  type="button"
+  class="back-to-top"
+  [class.is-visible]="showBackToTop()"
+  aria-label="Volver arriba"
+  (click)="scrollToTop()"
+>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 15 6-6 6 6" /></svg>
+</button>

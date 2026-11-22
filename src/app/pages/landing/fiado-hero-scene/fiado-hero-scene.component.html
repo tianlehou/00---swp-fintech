@@ -1,0 +1,32 @@
+<svg
+  class="fiado-scene"
+  viewBox="0 0 640 480"
+  role="img"
+  aria-label="Dueña de bodega anota un fiado en el celular mientras un cliente recibe recordatorio por WhatsApp."
+>
+  <rect class="sheet" width="640" height="480" rx="28" />
+  <rect class="shelf" x="48" y="120" width="200" height="280" rx="16" />
+  @for (row of shelfRows; track row) {
+    <rect class="shelf-row" [attr.x]="58" [attr.y]="row" width="180" height="8" rx="4" />
+  }
+  <rect class="register" x="88" y="300" width="120" height="70" rx="10" />
+  <circle class="person-head" cx="148" cy="250" r="28" />
+  <path class="person-body" d="M110 278 Q148 255 186 278 L186 340 Q148 360 110 340 Z" />
+
+  <g class="phone motion-spring">
+    <rect x="360" y="100" width="200" height="360" rx="28" class="phone-shell" />
+    <rect x="378" y="138" width="164" height="284" rx="12" class="phone-screen" />
+    <text x="392" y="170" class="screen-label">Nuevo fiado</text>
+    <rect x="392" y="182" width="132" height="22" rx="8" class="field" />
+    <rect x="392" y="214" width="100" height="22" rx="8" class="field" />
+    <rect x="392" y="246" width="118" height="22" rx="8" class="field" />
+    <rect x="392" y="286" width="136" height="36" rx="12" class="cta" />
+    <text x="410" y="308" class="cta-label">Guardar</text>
+  </g>
+
+  <g class="bubble motion-rise">
+    <rect x="398" y="56" width="188" height="52" rx="14" class="wa-bubble" />
+    <text x="412" y="78" class="wa-text">Hola vecino, te recuerdo</text>
+    <text x="412" y="96" class="wa-text">el fiado de $12.50 👋</text>
+  </g>
+</svg>

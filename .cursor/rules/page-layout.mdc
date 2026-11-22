@@ -1,0 +1,38 @@
+---
+description: Ancho de contenedor del sitio en desktop — alinear header (menú) y contenido con `.page` y tokens en `styles.css`.
+alwaysApply: false
+---
+
+# Layout de página (desktop)
+
+El header (`app-site-header`) y el `<main>` deben compartir el **mismo contenedor horizontal**: la clase global `.page` en `src/styles.css`.
+
+## Tokens (`:root`)
+
+| Token | Valor | Uso |
+|---|---|---|
+| `--gk-page-max-width` | `1200px` | Ancho máximo del contenido en pantallas grandes |
+| `--gk-page-padding-inline` | `1.25rem` | Margen interno lateral (alinea con el botón del menú) |
+| `--gk-layout-desktop-min` | `992px` | Umbral «desktop» para `@media (min-width: …)` |
+
+No dupliques `1200px`, `960px` ni `calc(100vw - 2rem)` en páginas nuevas salvo excepción documentada abajo.
+
+## Reglas
+
+1. **Header:** el interior del header ya usa `<div class="page">` — no cambiar su ancho sin actualizar los tokens.
+2. **Main:** envuelve el contenido de la página en `<div class="page">` dentro de `<main>` (como `/inicio`, `/organizacion/solicitar`, `/org/...`).
+3. **Alineación:** el bloque principal va **alineado al inicio** del contenedor (misma columna que el menú hamburguesa), no centrado en viewport con otro `max-width`.
+4. **Columnas estrechas:** formularios o CTAs pueden usar `max-width` local (p. ej. `28rem`, `38rem`) **dentro** de `.page`, sin recentrar todo el main.
+5. **Carouseles a ancho completo:** si una sección debe salir al borde visual del viewport, documenta la excepción; por defecto respeta el padding vía `var(--gk-page-padding-inline)`.
+6. **Desktop:** estilos que solo aplican en pantalla ancha usan `@media (min-width: var(--gk-layout-desktop-min))` cuando tenga sentido.
+
+## Excepciones conocidas
+
+- **Guías de pitch** (`.pitch-doc .page`): `max-width: 52rem` para lectura — no aplica a páginas de producto genéricas.
+- **Modales / sidebars:** ancho propio (480px, drawer, etc.); no usan `.page`.
+
+## Referencia viva
+
+- Tokens y clase: `src/styles.css` (`.page`)
+- Header: `src/app/shared/components/site-header/site-header.component.html`
+- Ejemplo org: `src/app/pages/org/org-request/`

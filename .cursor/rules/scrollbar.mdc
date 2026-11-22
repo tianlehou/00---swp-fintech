@@ -1,0 +1,18 @@
+---
+description: Todas las barras de scroll de la app son delgadas (6px). No redefinirlas por componente.
+globs: "**/*.css"
+alwaysApply: false
+---
+
+# Barras de scroll
+
+Toda barra de scroll —la de la página y la de cualquier contenedor— es delgada. El estilo vive una sola vez en `src/styles.css`.
+
+## Reglas
+
+- Ancho y alto: **6px**.
+- Firefox: `scrollbar-width: thin` y `scrollbar-color: rgba(31, 58, 52, 0.35) transparent`.
+- WebKit: pulgar del mismo color, pista transparente, `border-radius: 999px`.
+- Aplica a scroll vertical y horizontal.
+- Al crear un área con `overflow: auto` o `scroll`, no añadas `scrollbar-width` ni `::-webkit-scrollbar` en el componente. La regla global de `*` ya las cubre.
+- Si un caso necesita ocultar la barra, es la excepción y se documenta en ese componente. El resto permanece delgado.

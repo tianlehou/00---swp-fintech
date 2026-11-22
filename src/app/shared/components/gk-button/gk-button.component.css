@@ -1,0 +1,33 @@
+:host {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 0.75rem 1.15rem;
+  background: var(--gk-accent);
+  color: #fff;
+  font-weight: 600;
+  transition: transform 160ms var(--gk-ease-out), filter 160ms ease;
+}
+
+:host(.is-quiet) {
+  background: transparent;
+  color: var(--gk-ink);
+  font-weight: 500;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :host:not(.is-quiet):hover {
+    filter: brightness(1.05);
+  }
+}
+
+:host:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host:active {
+    transform: none;
+  }
+}

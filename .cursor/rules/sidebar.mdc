@@ -1,0 +1,47 @@
+---
+description: Al crear o editar un sidebar, componente hijo, entra y sale deslizándose desde la izquierda.
+alwaysApply: false
+---
+
+# Sidebar
+
+Todo sidebar nuevo es un componente hijo de quien lo abre, igual que un modal. Si lo usa el header compartido, vive en la carpeta de ese header. La referencia viva es `src/app/shared/components/site-header/site-sidebar/`.
+
+El movimiento de entrada y salida es el del sidebar de Cliente Plus: el panel permanece montado y se desliza.
+
+## Reglas
+
+- Es un **componente hijo**. El padre solo lo declara y llama a `open()`.
+- El panel **no** se destruye al cerrar. Si se quita del DOM, no hay animación de salida.
+- Cerrado: `transform: translateX(-100%)`. Abierto (clase `open`): `transform: translateX(0)`.
+- La transición del panel es **`all 0.3s ease`**, para que entrada y salida duren igual.
+- El fondo (overlay) tapa la página y, al pulsarlo, cierra el sidebar.
+- `pointer-events: none` mientras está fuera; `auto` cuando tiene la clase `open`.
+- `inert` se pone **después** de que termine la transición de `transform`. Si se pone al empezar a cerrar, el navegador deja la animación de salida en el primer frame.
+- Escape también cierra.
+- El enlace de la página actual lleva la clase `active`: fondo `var(--gk-accent)`, texto blanco, barra blanca a la izquierda, `translateX(6px)` y sin clic. El resto, al pasar el cursor, se corre 4px y muestra una barra del color de acento.
+
+## Estructura
+
+```html
+<div class="sidebar-menu" [class.open]="isOpen()">…</div>
+@if (isOpen()) {
+  <div class="overlay" (click)="close()"></div>
+}
+```
+
+```css
+.sidebar-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu.open {
+  transform: translateX(0);
+  pointer-events: auto;
+}
+```

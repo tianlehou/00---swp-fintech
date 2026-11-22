@@ -1,0 +1,200 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+  --gk-ink: #1f3a34;
+  --gk-ink-soft: rgba(31, 58, 52, 0.66);
+  --gk-paper: #f6f1ea;
+  --gk-paper-deep: #efe7dc;
+  --gk-accent: #fc7426;
+  --gk-teal: #20dac6;
+  --gk-teal-ink: #0b6e66;
+  --gk-dark: #000000;
+  --gk-on-dark: #f6f6f7;
+  --gk-on-dark-soft: rgba(246, 246, 247, 0.72);
+  --gk-line: rgba(31, 58, 52, 0.12);
+  --gk-danger: #b3261e;
+  --gk-radius: 20px;
+  --gk-shadow-sheet: 0 12px 28px rgba(31, 58, 52, 0.09);
+  --gk-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --gk-ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --gk-ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --font: Poppins, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --gk-caret: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231f3a34' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  --gk-keyboard-inset: 0px;
+  /* Contenedor horizontal del sitio (header + main). Ver `.cursor/rules/page-layout.mdc`. */
+  --gk-page-max-width: 1200px;
+  --gk-page-padding-inline: 1.25rem;
+  --gk-layout-desktop-min: 992px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Toda barra de scroll (página y contenedores). Ver `.cursor/rules/scrollbar.mdc`. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(31, 58, 52, 0.35) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(31, 58, 52, 0.35);
+  border-radius: 999px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  font-weight: 400;
+  color: var(--gk-ink);
+  background: var(--gk-paper);
+  line-height: 1.5;
+  caret-color: var(--gk-ink);
+  /* Flecha por defecto; Bootstrap pone mano en casi todo <button>. */
+  cursor: default;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--gk-teal) 42%, #fff);
+  color: var(--gk-ink);
+}
+
+.page {
+  width: 100%;
+  max-width: var(--gk-page-max-width);
+  margin-inline: auto;
+  padding-inline: var(--gk-page-padding-inline);
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+p {
+  font-weight: 400;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.18em;
+}
+
+.brand-name {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--gk-ink);
+  text-decoration: none;
+  line-height: 1;
+}
+
+.brand-da {
+  background: linear-gradient(180deg, #7dfff4 0%, var(--gk-teal) 55%, #019bb3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-mas {
+  background: linear-gradient(180deg, #f9d02c 0%, var(--gk-accent) 48%, #fc6b26 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.brand-slogan {
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  color: var(--gk-ink-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Movimiento de hoja (inicio, listas). Ver `.cursor/rules/home-inicio.mdc`. */
+@keyframes gk-sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes gk-sheet-out {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes gk-panel-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes gk-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes gk-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}
+
+@keyframes gk-pop-out {
+  to {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+}
+
+@keyframes gk-attention-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--gk-accent) 50%, transparent);
+  }
+
+  50% {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--gk-accent) 0%, transparent);
+  }
+}
+
+.gk-attention-pulse {
+  animation: gk-attention-pulse 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gk-attention-pulse {
+    animation: none;
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--gk-accent) 70%, transparent);
+  }
+}
+
+/* Custom styles */
+.border-red {
+  border: 1px solid var(--gk-danger);
+}
+

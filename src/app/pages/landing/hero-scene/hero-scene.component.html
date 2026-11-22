@@ -1,0 +1,98 @@
+<svg
+  viewBox="0 0 1024 768"
+  role="img"
+  aria-label="Un grupo hace lluvia de ideas frente a un pizarrón lleno de papelitos unidos como los pasos de una startup."
+>
+  <defs>
+    <polygon id="hero-p-whead" points="138,228 175,212 230,215 262,240 272,290 262,335 240,352 205,358 180,345 150,310 140,270" />
+    <polygon id="hero-p-warm" points="300,345 330,315 352,285 372,272 392,280 388,305 375,330 352,352 330,368 305,372" />
+    <polygon id="hero-p-chead" points="243,383 300,370 365,374 392,404 402,470 398,510 375,530 330,538 285,528 250,495 240,440" />
+    <polygon id="hero-p-ghead" points="583,430 625,418 690,420 730,445 752,500 760,570 745,612 610,612 588,570 578,500" />
+    <polygon id="hero-p-mhead" points="802,388 840,372 905,375 950,400 965,450 955,500 925,525 870,535 820,515 800,470 796,430" />
+    <polygon id="hero-p-noteA" points="748,165 806,165 806,220 748,220" />
+    <polygon id="hero-p-noteB" points="372,330 424,330 424,380 372,380" />
+    <polygon id="hero-p-noteC" points="603,336 664,336 664,390 603,390" />
+    <polygon id="hero-p-cloud" points="215,30 392,30 392,108 215,108" />
+    <polygon id="hero-p-star" points="848,52 900,52 900,98 848,98" />
+    <polygon id="hero-p-dot1" points="100,115 122,115 122,137 100,137" />
+    <polygon id="hero-p-dot2" points="945,230 968,230 968,252 945,252" />
+
+    <clipPath id="hero-c-whead"><use href="#hero-p-whead" /></clipPath>
+    <clipPath id="hero-c-warm"><use href="#hero-p-warm" /></clipPath>
+    <clipPath id="hero-c-chead"><use href="#hero-p-chead" /></clipPath>
+    <clipPath id="hero-c-ghead"><use href="#hero-p-ghead" /></clipPath>
+    <clipPath id="hero-c-mhead"><use href="#hero-p-mhead" /></clipPath>
+    <clipPath id="hero-c-noteA"><use href="#hero-p-noteA" /></clipPath>
+    <clipPath id="hero-c-noteB"><use href="#hero-p-noteB" /></clipPath>
+    <clipPath id="hero-c-noteC"><use href="#hero-p-noteC" /></clipPath>
+    <clipPath id="hero-c-cloud"><use href="#hero-p-cloud" /></clipPath>
+    <clipPath id="hero-c-star"><use href="#hero-p-star" /></clipPath>
+    <clipPath id="hero-c-dot1"><use href="#hero-p-dot1" /></clipPath>
+    <clipPath id="hero-c-dot2"><use href="#hero-p-dot2" /></clipPath>
+
+    <mask id="hero-base" maskUnits="userSpaceOnUse" x="0" y="0" width="1024" height="768">
+      <rect width="1024" height="768" fill="#fff" />
+      <g fill="#000" stroke="#fff" stroke-width="2">
+        <use href="#hero-p-whead" />
+        <use href="#hero-p-warm" />
+        <use href="#hero-p-chead" />
+        <use href="#hero-p-ghead" />
+        <use href="#hero-p-mhead" />
+        <use href="#hero-p-noteA" />
+        <use href="#hero-p-noteB" />
+        <use href="#hero-p-noteC" />
+        <use href="#hero-p-cloud" />
+        <use href="#hero-p-star" />
+        <use href="#hero-p-dot1" />
+        <use href="#hero-p-dot2" />
+      </g>
+    </mask>
+  </defs>
+
+  <rect class="sheet" width="1024" height="768" />
+  <image href="landing/espacio.jpg" width="1024" height="768" mask="url(#hero-base)" />
+
+  <!-- Ambiente -->
+  <g class="part drift" style="transform-origin: 303px 69px">
+    <image href="landing/espacio.jpg" width="1024" height="768" clip-path="url(#hero-c-cloud)" />
+  </g>
+  <g class="part twinkle" style="transform-origin: 874px 75px">
+    <image href="landing/espacio.jpg" width="1024" height="768" clip-path="url(#hero-c-star)" />
+  </g>
+  <g class="part bob">
+    <image href="landing/espacio.jpg" width="1024" height="768" clip-path="url(#hero-c-dot1)" />
+  </g>
+  <g class="part bob late">
+    <image href="landing/espacio.jpg" width="1024" height="768" clip-path="url(#hero-c-dot2)" />
+  </g>
+
+  <!-- Pizarrón: los papelitos naranjas se marcan en orden -->
+  <g class="part hero-note hero-note--b" style="transform-origin: 398px 355px">
+    <image href="landing/espacio.jpg" width="1024" height="768" clip-path="url(#hero-c-noteB)" />
+  </g>
+  <g class="part hero-note hero-note--c" style="transform-origin: 633px 363px">
+    <image href="landing/espacio.jpg" width="1024" height="768" clip-path="url(#hero-c-noteC)" />
+  </g>
+  <g class="part hero-note hero-note--a" style="transform-origin: 777px 192px">
+    <image href="landing/espacio.jpg" width="1024" height="768" clip-path="url(#hero-c-noteA)" />
+  </g>
+
+  <!-- Ella señala -->
+  <g class="part hero-w-head">
+    <image href="landing/espacio.jpg" width="1024" height="768" clip-path="url(#hero-c-whead)" />
+  </g>
+  <g class="part hero-w-arm">
+    <image href="landing/espacio.jpg" width="1024" height="768" clip-path="url(#hero-c-warm)" />
+  </g>
+
+  <!-- El equipo sigue el recorrido -->
+  <g class="part hero-c-head">
+    <image href="landing/espacio.jpg" width="1024" height="768" clip-path="url(#hero-c-chead)" />
+  </g>
+  <g class="part hero-g-head">
+    <image href="landing/espacio.jpg" width="1024" height="768" clip-path="url(#hero-c-ghead)" />
+  </g>
+  <g class="part hero-m-head">
+    <image href="landing/espacio.jpg" width="1024" height="768" clip-path="url(#hero-c-mhead)" />
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+---
+description: Al crear o editar un select, usar app-ui-select con la pirámide invertida. No dejar un select nativo suelto.
+alwaysApply: false
+---
+
+# Select
+
+Todo desplegable es el componente compartido `app-ui-select` (`src/app/shared/components/ui-select/`).
+
+## Reglas
+
+- No uses `<select>` en una plantilla. El componente ya pinta el control, las opciones y la flecha.
+- Las opciones son `UiSelectOption[]`: `{ value, label }`, exportado desde el mismo componente.
+- El `id` entra por `inputId` y coincide con el `for` del `<label>` que queda en el formulario.
+- El valor entra por `[value]` y sale por `(changed)` como texto de la opción elegida.
+- Al pulsar el campo se abre un diálogo de 480px, por encima del modal del formulario. Elegir una opción lo cierra. Escape, el fondo y la X también.
+- Placeholder: texto de la opción vacía (`value=""`). Si no hace falta, no lo pongas.
+- Error: `[invalid]` y `[describedBy]` hacia el `id` del aviso (`id` + `-error`). El borde rojo y el texto los pinta el componente y el formulario, como el resto de campos.
+- `[disabled]` cuando el formulario está ocupado.
+
+La flecha es la pirámide invertida (`M6 8L1 3h10z`) en `--gk-caret`. No uses el caret del navegador ni otro icono.
+
+```html
+<label for="sala-categoria">Categoría</label>
+<app-ui-select
+  inputId="sala-categoria"
+  [value]="category()"
+  placeholder="Elige una categoría"
+  [options]="categoryOptions"
+  [disabled]="creating()"
+  [invalid]="!!issues.fields()['sala-categoria']"
+  [describedBy]="issues.fields()['sala-categoria'] ? 'sala-categoria-error' : null"
+  (changed)="onCategory($event)"
+/>
+```

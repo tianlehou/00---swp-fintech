@@ -1,0 +1,34 @@
+---
+description: Sesión — ng build no de rutina (ni en gp) y staging de cambios exclusivo del usuario
+alwaysApply: true
+---
+
+# Flujo de trabajo en sesión (obligatorio)
+
+Reglas de comportamiento del agente durante **cualquier** sesión de trabajo, antes de empezar a editar (junto con `agent-read-rules-first.mdc`).
+
+## 1. Build — no de rutina (ni como compuerta de `gp`)
+
+- **Prohibido** ejecutar `ng build` después de cada tarea o cambio cosmético (CSS, copy, un margen, un label).
+- **Prohibido** ejecutar `ng build` como paso de **`gp`** (ralentiza el publish).
+- `npx ng build` **sí** corre en estos casos:
+  1. **Riesgo real de errores de template/Angular** que `tsc` no detecta (p. ej. varios componentes nuevos, plantillas tocadas en shared usados en muchos sitios, refactor de inputs/outputs o rutas de imports).
+  2. **El usuario lo pide** o reporta un error de compile visto en `ng serve` / app desplegada y conviene revalidar con build.
+- Preferir primero `npx tsc --noEmit` para TypeScript puro cuando haya riesgo de TS (no como rutina de `gp`).
+- Ante la duda de riesgo bajo: **no** correr build; revisar el código con cuidado o preguntar.
+- Máximo **un** build por tarea, salvo fallo que haya que revalidar tras corregir.
+- Detalle: `.cursor/memory/build-pre-gp.md`.
+
+## 2. El staging de cambios es exclusivo del usuario, salvo en `gp`
+
+- Fuera de `gp`, **prohibido** ejecutar `git add` (parcial o total) o mover cambios de Changes a Staged Changes.
+- Después de editar o crear archivos, dejar los cambios **sin stagear** (en Changes) para que el usuario los revise.
+- Solo el usuario decide qué pasa a Staged Changes y cuándo durante el trabajo normal. No anticiparse ni «ayudar» stageando fuera de `gp`.
+- **Excepción única:** dentro del flujo `gp`, el agente **sí puede** stagear los archivos necesarios para publicar, incluyendo cambios pendientes, `commit-message.txt` y el bump de versión, siguiendo `github-gp.mdc` y el skill `github-publisher`.
+- En `gp`, antes de hacer commit, confirmar que lo que se va a publicar corresponde al alcance pedido por el usuario y que no se están incluyendo archivos sensibles.
+
+## Relación
+
+- Regla de lectura previa: `.cursor/rules/agent-read-rules-first.mdc`
+- Build: `.cursor/memory/build-pre-gp.md`
+- GitHub / `gp`: `.cursor/rules/github-gp.mdc`, `.cursor/memory/github-gp.md`, skill `github-publisher` (atajo `gp`)

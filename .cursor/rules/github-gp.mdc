@@ -1,0 +1,99 @@
+---
+description: Flujo gp obligatorio antes de push — rama actual, un solo commit, sin atribución Cursor
+alwaysApply: true
+---
+
+# GitHub — flujo `gp` (obligatorio)
+
+Antes de **cualquier** `git push` (cualquier remoto/rama: `main`, feature, `cursor/*`, etc.):
+
+1. **Leer y ejecutar** el skill `github-publisher` en `.cursor/skills/github-publisher/SKILL.md`.
+2. Equivale al atajo **`gp`** (ver `agent-shortcuts.mdc`).
+3. **Prohibido** commit + push “a mano” saltándose versionado, `commit-message.txt`, bump de `APP_VERSION` / `public/app-version.json`, exclusión de `environment*`, o limpieza de trailers de atribución.
+4. **Fecha/hora del título:** siempre en **UTC−5** (Panamá), no en UTC del servidor. Ver `.cursor/memory/github-gp.md`.
+
+## Cuándo aplica
+
+- El usuario pide subir, pushear, publicar, mergear a remoto, o «sube a GitHub» / `gp`.
+- El agente va a ejecutar `git push` por iniciativa propia (fin de tarea, Cloud Agent, etc.).
+- No importa la rama destino.
+
+## Rama de `gp` = rama actual
+
+| | |
+|--|--|
+| Destino | **La rama en la que está el checkout** al pedir `gp` |
+| Alcance | **Solo esa rama**: un commit + push a su remoto. **Prohibido** copiar, cherry-pick, merge o segundo `gp` hacia otra rama en el mismo pedido |
+| `main` | No usar `gp` en `main` salvo pedido **explícito** de publicar ahí |
+| `gpsquash` | Sigue usando `cursor/agent-work` → `squash-zone` → `main` (skill aparte); no confundir con `gp` |
+
+## Remoto antes de ramificar o publicar (obligatorio)
+
+Antes de **crear una rama desde `main`**, **rebasear** sobre `main`/`squash-zone`, o ejecutar **`gp`/push** cuando el trabajo dependa de la punta actual del repo:
+
+1. **`git fetch origin`** (como mínimo `main`; también la rama base si no es `main`).
+2. Comparar el checkout local con el remoto (`git rev-parse HEAD` vs `git rev-parse origin/main`, o la rama que corresponda).
+3. Si **`origin/main` (o la base) está adelante** del `main` local: **actualizar la base** (`git merge origin/main` en la rama de trabajo, o rebase según el flujo del equipo) **antes** de seguir editando, versionar o abrir/actualizar PR.
+4. **Prohibido** asumir que el `main` del snapshot o del checkout local es la punta publicada sin haber hecho `fetch`.
+
+Memoria: `.cursor/memory/github-gp.md` (sección «Remoto»).
+
+## Orden
+
+1. Detectar la rama actual (`git branch --show-current`). **No** cambiar de rama para publicar.
+2. Si la rama es `main` (u otra protegida) y el usuario no pidió publicar ahí: **detener** y preguntar.
+3. Aplicar el flujo completo de `gp` en esa rama (**un solo** commit versionado con `-F commit-message.txt`).
+4. Solo entonces `git push -u origin <rama-actual>` (o `git push` si ya trackea).
+5. Merge / push a `main` desde otra rama **solo** si el usuario lo pide explícitamente (o vía `gpsquash` cuando corresponda).
+   - Cierre de bloque (`gpsquash`): merge agent→squash-zone (`Join_sz`) + squash-zone→main (`Join_main`); commit `S` solo en fallback; agent-work permanece granular (skill `github-publisher-squash`); **sin** commits/tags backup.
+
+## Un solo commit
+
+- Cada ejecución de `gp` produce **exactamente un** commit (todo el trabajo pendiente va en ese commit).
+- **Prohibido** partir el mismo `gp` en varios commits por subtarea, archivo, docs o «pasos» intermedios.
+- Si ya hubo commits locales improvisados en la sesión: integrarlos en el flujo `gp` (squash/amend solo si aplica el protocolo del skill y es seguro); no empujar una ráfaga de commits sueltos.
+
+## Completitud antes de commit
+
+- **No** hacer `git commit` ni `git push` si las tareas pedidas **no están completas** o hay duda razonable de que falte trabajo.
+- Si el usuario pidió `gp` y aún hay pendientes claros: **avisar** qué falta y **no** publicar hasta que confirme o se complete.
+- No inventar un commit “parcial” solo para “cerrar” el flujo.
+
+## Staging permitido dentro de `gp`
+
+- **Excepción del proyecto:** dentro del flujo `gp`, el agente **sí puede** ejecutar `git add` para stagear los cambios que se van a publicar.
+- Esta excepción incluye archivos funcionales, `commit-message.txt`, `src/app/shared/config/app-version.ts` y `public/app-version.json`.
+- Fuera de `gp`, sigue aplicando la regla `workflow-session.mdc`: no mover Changes → Staged Changes.
+- Antes de hacer commit en `gp`, revisar que el staged refleje exactamente el alcance pedido por el usuario y que no incluya archivos sensibles.
+
+## Identidad Git (sin «cursoragent committed»)
+
+En GitHub, «cursoragent committed» aparece si el **committer** (o a veces el author) es `cursoragent`. Evitarlo siempre:
+
+1. **Antes de cada `git commit` / `--amend`:** fijar en el entorno del comando (sin tocar `git config`) `GIT_AUTHOR_NAME`, `GIT_AUTHOR_EMAIL`, `GIT_COMMITTER_NAME` y `GIT_COMMITTER_EMAIL` con los valores de `git config user.name` y `git config user.email` del repo/usuario.
+2. Si falta `user.name` o `user.email`: **detener** y pedir al usuario que los configure; no inventar identidad ni usar `cursoragent`.
+3. **Tras el commit**, verificar:
+   `git log -1 --format="%an <%ae>%n%cn <%ce>"`
+   Si author o committer contienen `cursoragent`, `cursor`, `Cursor` o `cursoragent@cursor.com`: enmendar en silencio con las mismas variables de entorno y el mensaje limpio **antes** de cualquier push.
+4. Commits **solo** por shell con ese protocolo (flujo `gp`). No usar flujos que firmen o atribuyan el commit a Cursor/cursoragent.
+
+## Sin mención de Cursor / agente
+
+En commit, PR, mensajes al usuario y notas públicas:
+
+- **Prohibido** decir o implicar que Cursor, el agente, Cloud Agent o equivalentes hicieron el commit, el push o el cambio.
+- **Prohibido** trailers/atribución: `Co-authored-by`, `Made-with`, `cursoragent@cursor.com`, etc.
+- **Prohibido** que GitHub muestre author/committer `cursoragent` (ver sección Identidad Git).
+- Informar solo: versión, título, resumen funcional y rama. Limpiar atribución e identidad en silencio si aparece.
+
+## Prohibido (rama)
+
+- Cambiar de rama, cherry-pick o duplicar el commit en otra rama «por completar el flujo».
+- Crear ramas nuevas solo para poder hacer `gp` (el usuario elige/checkout la rama de trabajo).
+- Usar `main` como destino de `gp` cotidiano salvo pedido explícito.
+
+## Relación
+
+- Skill: `.cursor/skills/github-publisher/SKILL.md`
+- Atajo: `gp`
+- Memoria: `.cursor/memory/github-gp.md`

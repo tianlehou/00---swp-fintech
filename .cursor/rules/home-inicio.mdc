@@ -1,0 +1,37 @@
+---
+description: Al crear o editar /inicio (home), aplicar entradas y salidas como en Cliente Plus — hojas escalonadas, pestañas con salida antes del cambio y filtros con popover montado.
+alwaysApply: false
+---
+
+# Inicio (`/inicio`)
+
+La referencia viva es `src/app/pages/home/`. El movimiento replica la página de inicio de Cliente Plus: transform y opacidad con `--gk-ease-out`, sin animar ancho ni altura.
+
+## Lista de salas (hojas)
+
+- Entrada: `gk-sheet-in`, **240ms**, `--gk-ease-out`, delay `min(calc(var(--i) * 32ms), 128ms)` por ítem.
+- Salida al cambiar de vista: `gk-sheet-out`, **150ms**, sin delay (sale más rápido que entra).
+- La pestaña activa (`tab`) puede adelantarse; la lista visible (`shown` / `othersView`) cambia **después** de la salida.
+- `is-held`: si el usuario vuelve a la misma pestaña a mitad de salida, no repetir la entrada.
+- Sin animación de hoja si la lista está vacía, en carga o error, o si `prefers-reduced-motion: reduce` (solo `gk-panel-in`).
+
+## Cabecera de la vista
+
+- `.lead` y `.tabs`: `gk-rise-in` con delays cortos (0ms y ~48ms).
+- `.fab-cluster`: `gk-rise-in` ~64ms cuando aparece en Otras salas.
+
+## Filtros flotantes
+
+- El componente `app-salas-filters` **permanece montado** en Otras salas; abre/cierra con clase `open`, no con `@if` en el padre.
+- Fondo: opacidad 200ms. Menú: `gk-pop-in` / `gk-pop-out` (~220ms / ~160ms) desde la esquina inferior derecha.
+- Cerrar: Escape, clic en el fondo o al cambiar de pestaña.
+
+## Tokens
+
+- Curvas y duraciones: `DESIGN.md` y `:root` en `src/styles.css` (`--gk-ease-out`, `--gk-ease-drawer`).
+- Keyframes compartidos: `gk-sheet-in`, `gk-sheet-out`, `gk-panel-in`, `gk-rise-in`, `gk-pop-in`, `gk-pop-out` en `src/styles.css`.
+
+## Skills relacionados
+
+- `.cursor/skills/home-inicio-motion/SKILL.md`
+- `.cursor/skills/_agents/skills-for-design-enginners_emil-kowalski/skills/review-animations/SKILL.md`

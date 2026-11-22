@@ -1,0 +1,11 @@
+v1.00.001 2026-11-22 10h:14m feat(landing): prototipo Fiado Digital con pitch y motion
+
+Lista de cambios:
+- Landing Angular 19 + SSR con el contenido de resumen.md (hero, cinco pasos, fintech, monetización)
+- Motion y estilos alineados al patrón de Genkidamás (landing-motion, paneles con scroll)
+- Reglas, skills y memorias del agente copiados en .cursor/
+- PRODUCT.md, README y arte del hero (fiado-hero-scene) para el prototipo de pitch
+
+Cambios estructurales:
+- Esqueleto app (rutas, header, gk-button) y public/app-version.json
+- .gitignore ampliado (sin dist, .angular/cache ni node_modules)

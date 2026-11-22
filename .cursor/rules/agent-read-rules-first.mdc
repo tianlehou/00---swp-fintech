@@ -1,0 +1,24 @@
+---
+description: Leer reglas y memorias del proyecto antes de cualquier acción
+alwaysApply: true
+---
+
+# Leer reglas antes de actuar
+
+Antes de **cualquier** acción en el proyecto (editar código, crear/borrar archivos, renombrar, commits, `gp`/push, PRs, migraciones, assets, etc.):
+
+1. Revisar las **reglas alwaysApply** y las de `.cursor/rules/` aplicables al tema.
+2. Consultar `.cursor/memory.md` y la memoria del módulo si existe en `.cursor/memory/`.
+3. Si hay **skill** o atajo (`gp`): **leer el `SKILL.md` completo** y ejecutarlo; no improvisar el flujo.
+4. Si vas a **crear rama**, **rebasear** o **publicar** (`gp`/push): **`git fetch origin`** y alinear con la punta remota de la rama base (p. ej. `origin/main`) antes de continuar. Ver `.cursor/rules/github-gp.mdc` («Remoto antes de ramificar o publicar»).
+
+## Prohibido
+
+- Empezar a editar, crear archivos o subir a GitHub **sin** haber aplicado las reglas/skills relevantes.
+- Inventar convenciones que contradigan `.cursor/rules/` o `.cursor/memory/`.
+- Ramificar, rebasear o publicar sobre un `main` local desactualizado **sin** `git fetch origin` y comprobar `origin/main` (u otra base remota).
+
+## Relación
+
+- Índice: `.cursor/memory.md`
+- GitHub / commits: `.cursor/rules/github-gp.mdc`
