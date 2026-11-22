@@ -1,0 +1,397 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.loop-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #fff;
+  border-radius: calc(var(--gk-radius) - 4px);
+  overflow: hidden;
+}
+
+.fiado-scene {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 12px 24px rgba(31, 58, 52, 0.1));
+}
+
+.sheet {
+  fill: #fff;
+}
+
+.shelf {
+  fill: color-mix(in srgb, var(--gk-paper-deep) 70%, #fff);
+  stroke: var(--gk-line);
+  stroke-width: 2;
+}
+
+.shelf-row {
+  fill: rgba(31, 58, 52, 0.1);
+}
+
+.register {
+  fill: var(--gk-accent);
+  opacity: 0.85;
+}
+
+.person-head {
+  fill: #f5c9a8;
+  stroke: var(--gk-ink);
+  stroke-width: 2;
+}
+
+.person-body {
+  fill: var(--gk-teal);
+  opacity: 0.9;
+  stroke: var(--gk-teal-ink);
+  stroke-width: 2;
+}
+
+.phone-shell {
+  fill: var(--gk-ink);
+}
+
+.phone-screen {
+  fill: var(--gk-paper);
+}
+
+.screen-label {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  fill: var(--gk-ink);
+}
+
+.field {
+  fill: #fff;
+  stroke: var(--gk-line);
+  stroke-width: 1.5;
+}
+
+.field-text {
+  font-family: var(--font);
+  font-size: 11px;
+  fill: var(--gk-ink-soft);
+  opacity: 0;
+}
+
+.cta {
+  fill: var(--gk-accent);
+}
+
+.cta-label {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 700;
+  fill: #fff;
+}
+
+.wa-layer {
+  opacity: 0;
+  transform-origin: 492px 82px;
+}
+
+.wa-bubble {
+  fill: #dcf8c6;
+  stroke: #7ad06d;
+  stroke-width: 1.5;
+}
+
+.wa-text {
+  font-family: var(--font);
+  font-size: 11px;
+  fill: #1a3b2a;
+}
+
+.pay-layer,
+.score-layer,
+.credit-layer {
+  opacity: 0;
+}
+
+.pay-card {
+  fill: #fff;
+  stroke: var(--gk-teal);
+  stroke-width: 2;
+}
+
+.pay-text {
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  fill: var(--gk-teal-ink);
+}
+
+.pay-sub {
+  font-family: var(--font);
+  font-size: 11px;
+  fill: var(--gk-ink-soft);
+}
+
+.score-card {
+  fill: #fff;
+  stroke: var(--gk-line);
+  stroke-width: 1.5;
+}
+
+.score-label {
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 700;
+  fill: var(--gk-ink);
+}
+
+.score-bar {
+  fill: var(--gk-accent);
+  transform-box: fill-box;
+  transform-origin: bottom;
+  transform: scaleY(0.2);
+}
+
+.credit-ring {
+  fill: none;
+  stroke: var(--gk-accent);
+  stroke-width: 5;
+  opacity: 0;
+}
+
+.credit-text {
+  font-family: var(--font);
+  font-size: 13px;
+  font-weight: 800;
+  fill: var(--gk-accent);
+  opacity: 0;
+}
+
+/* Escenas */
+.view-anota .field-text-a,
+.view-anota .field-text-b,
+.view-anota .field-text-c {
+  animation: loop-fade-in 0.55s var(--gk-ease-out) forwards;
+}
+
+.view-anota .field-text-b {
+  animation-delay: 0.35s;
+}
+
+.view-anota .field-text-c {
+  animation-delay: 0.7s;
+}
+
+.view-anota .cta {
+  animation: loop-pulse 1.4s var(--gk-ease-out) infinite;
+}
+
+.view-recuerda .wa-layer {
+  opacity: 1;
+  animation: loop-bubble-in 0.65s var(--gk-ease-out) forwards,
+    loop-bubble-pulse 1.8s var(--gk-ease-in-out) 0.65s infinite;
+}
+
+.view-cobra .pay-layer {
+  opacity: 1;
+  animation: loop-rise 0.6s var(--gk-ease-out) forwards;
+}
+
+.view-historial .score-layer {
+  opacity: 1;
+}
+
+.view-historial .bar-1 {
+  animation: loop-bar-up 0.45s var(--gk-ease-out) 0.1s forwards;
+}
+
+.view-historial .bar-2 {
+  animation: loop-bar-up 0.45s var(--gk-ease-out) 0.25s forwards;
+}
+
+.view-historial .bar-3 {
+  animation: loop-bar-up 0.45s var(--gk-ease-out) 0.4s forwards;
+}
+
+.view-historial .bar-4 {
+  animation: loop-bar-up 0.45s var(--gk-ease-out) 0.55s forwards;
+}
+
+.view-credito .credit-layer {
+  opacity: 1;
+}
+
+.view-credito .credit-ring {
+  opacity: 1;
+  animation: loop-ring-pop 0.75s var(--gk-ease-out) forwards;
+}
+
+.view-credito .credit-text {
+  opacity: 1;
+  animation: loop-fade-in 0.5s var(--gk-ease-out) 0.2s forwards;
+}
+
+.loop-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2.85rem;
+  margin: 0;
+  padding: 0.45rem 0.85rem;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--gk-ink);
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.96),
+    rgba(255, 255, 255, 0.82)
+  );
+}
+
+.loop-meter {
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 2.35rem;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--gk-line);
+  overflow: hidden;
+}
+
+.loop-meter-fill {
+  display: block;
+  height: 100%;
+  background: var(--gk-accent);
+  border-radius: inherit;
+  transition: width 0.45s var(--gk-ease-out);
+}
+
+.loop-controls {
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.55rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: center;
+}
+
+.loop-btn {
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid var(--gk-line);
+  background: #fff;
+  font-family: var(--font);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--gk-ink);
+  cursor: pointer;
+  transition: transform 160ms var(--gk-ease-out), background 160ms ease;
+}
+
+.loop-btn:hover {
+  transform: translateY(-1px);
+  background: var(--gk-paper);
+}
+
+.loop-btn-quiet {
+  color: var(--gk-ink-soft);
+}
+
+@keyframes loop-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loop-pulse {
+  0%,
+  100% {
+    filter: brightness(1);
+  }
+
+  50% {
+    filter: brightness(1.08);
+  }
+}
+
+@keyframes loop-bubble-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes loop-bubble-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes loop-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes loop-bar-up {
+  from {
+    transform: scaleY(0.15);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes loop-ring-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loop-controls {
+    display: none;
+  }
+
+  .view-anota .field-text,
+  .view-recuerda .wa-layer,
+  .view-cobra .pay-layer,
+  .view-historial .score-layer,
+  .view-credito .credit-layer {
+    animation: none !important;
+    opacity: 1;
+  }
+}

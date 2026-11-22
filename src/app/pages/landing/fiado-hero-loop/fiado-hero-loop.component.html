@@ -1,0 +1,71 @@
+<div
+  [class]="'loop-stage view-' + currentView()"
+  role="img"
+  [attr.aria-label]="subtitle()"
+>
+  <svg class="fiado-scene" viewBox="0 0 640 480" aria-hidden="true">
+    <rect class="sheet" width="640" height="480" rx="28" />
+    <rect class="shelf" x="48" y="120" width="200" height="280" rx="16" />
+    @for (row of shelfRows; track row) {
+      <rect class="shelf-row" [attr.x]="58" [attr.y]="row" width="180" height="8" rx="4" />
+    }
+    <rect class="register" x="88" y="300" width="120" height="70" rx="10" />
+    <circle class="person-head" cx="148" cy="250" r="28" />
+    <path class="person-body" d="M110 278 Q148 255 186 278 L186 340 Q148 360 110 340 Z" />
+
+    <g class="phone">
+      <rect x="360" y="100" width="200" height="360" rx="28" class="phone-shell" />
+      <rect x="378" y="138" width="164" height="284" rx="12" class="phone-screen" />
+      <text x="392" y="170" class="screen-label">Nuevo fiado</text>
+      <g class="field-group">
+        <rect x="392" y="182" width="132" height="22" rx="8" class="field field-a" />
+        <text x="400" y="198" class="field-text field-text-a">María · vecina</text>
+        <rect x="392" y="214" width="100" height="22" rx="8" class="field field-b" />
+        <text x="400" y="230" class="field-text field-text-b">$12.50</text>
+        <rect x="392" y="246" width="118" height="22" rx="8" class="field field-c" />
+        <text x="400" y="262" class="field-text field-text-c">Vence viernes</text>
+      </g>
+      <rect x="392" y="286" width="136" height="36" rx="12" class="cta" />
+      <text x="410" y="308" class="cta-label">Guardar</text>
+    </g>
+
+    <g class="wa-layer">
+      <rect x="398" y="56" width="188" height="52" rx="14" class="wa-bubble" />
+      <text x="412" y="78" class="wa-text">Hola vecino, te recuerdo</text>
+      <text x="412" y="96" class="wa-text">el fiado de $12.50 👋</text>
+    </g>
+
+    <g class="pay-layer">
+      <rect x="380" y="200" width="160" height="88" rx="16" class="pay-card" />
+      <text x="400" y="238" class="pay-text">Pago recibido</text>
+      <text x="400" y="262" class="pay-sub">Yappy · deuda cerrada</text>
+    </g>
+
+    <g class="score-layer">
+      <rect x="72" y="168" width="156" height="120" rx="14" class="score-card" />
+      <rect class="score-bar bar-1" x="88" y="248" width="18" height="28" rx="6" />
+      <rect class="score-bar bar-2" x="114" y="232" width="18" height="44" rx="6" />
+      <rect class="score-bar bar-3" x="140" y="220" width="18" height="56" rx="6" />
+      <rect class="score-bar bar-4" x="166" y="208" width="18" height="68" rx="6" />
+      <text x="88" y="192" class="score-label">Historial</text>
+    </g>
+
+    <g class="credit-layer">
+      <circle cx="148" cy="248" r="42" class="credit-ring" />
+      <text x="118" y="252" class="credit-text">Crédito</text>
+    </g>
+  </svg>
+
+  <p class="loop-caption" aria-live="polite">{{ subtitle() }}</p>
+  <div class="loop-meter" aria-hidden="true">
+    <span class="loop-meter-fill" [style.width.%]="progressPct()"></span>
+  </div>
+  <div class="loop-controls">
+    <button type="button" class="loop-btn" (click)="togglePlay()">
+      {{ playing() ? 'Pausar' : 'Reproducir' }}
+    </button>
+    <button type="button" class="loop-btn loop-btn-quiet" (click)="toggleMute()">
+      {{ muted() ? 'Activar voz' : 'Silenciar voz' }}
+    </button>
+  </div>
+</div>

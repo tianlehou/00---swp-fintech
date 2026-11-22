@@ -273,8 +273,8 @@ h1 {
   will-change: transform;
 }
 
-.hero-scene app-hero-scene {
-  aspect-ratio: 4 / 3;
+.hero-scene app-fiado-hero-loop {
+  display: block;
 }
 
 .panel {

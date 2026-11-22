@@ -12,7 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { fromEvent, throttleTime } from 'rxjs';
 import { LandingHeaderComponent } from '@shared/components/landing-header/landing-header.component';
 import { APP_VERSION } from '@shared/config/app-version';
-import { FiadoHeroSceneComponent } from './fiado-hero-scene/fiado-hero-scene.component';
+import { FiadoHeroLoopComponent } from './fiado-hero-loop/fiado-hero-loop.component';
 
 interface Step {
   index: string;
@@ -63,7 +63,7 @@ function kineticLines(lines: readonly (readonly KineticSegment[])[]): readonly K
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [LandingHeaderComponent, FiadoHeroSceneComponent],
+  imports: [LandingHeaderComponent, FiadoHeroLoopComponent],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.css',
 })
