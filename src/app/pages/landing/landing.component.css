@@ -279,6 +279,7 @@ h1 {
   max-width: 400px;
   margin-inline: auto;
   margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
   background: transparent;
   border-radius: var(--gk-radius);
   overflow: visible;

@@ -1,10 +1,6 @@
-v1.00.005 2026-11-22 11h:33m feat(landing): video del hero con capturas del prototipo
+v1.00.006 2026-11-22 11h:46m feat(landing): reproductor CSS del hero con controles
 
 Lista de cambios:
-- Loop del hero con las cinco capturas en public/fiado-prototype y narración en español
-- Reproduce una vez en automático y queda en pausa al final; sin botón de silenciar
-- Altura completa en desktop y aspect-ratio en móvil para ver las pantallas enteras
-- Header sin posición sticky
-
-Cambios estructurales:
-- Ajustes de layout del hero (hero-row, hero-video-col)
+- Video HTML/CSS con las cinco capturas, crossfade, ken-burn y subtítulos en pantalla
+- Play/pausa dentro del video, contador de tiempo y sin barra de progreso
+- Corrección de tipado del intervalo y mejoras de layout en móvil/desktop

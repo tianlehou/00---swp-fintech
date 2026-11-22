@@ -29,16 +29,30 @@ export class FiadoHeroLoopComponent {
   readonly sceneIndex = signal(0);
   readonly playing = signal(false);
   readonly finished = signal(false);
+  readonly elapsedSec = signal(0);
 
   readonly currentCue = computed(() => this.cues[this.sceneIndex()] ?? this.cues[0]);
   readonly currentView = computed<FiadoLoopView>(() => this.currentCue().view);
   readonly subtitle = computed(() => this.currentCue().t);
-  readonly progressPct = computed(
-    () => ((this.sceneIndex() + 1) / this.cues.length) * 100,
-  );
+  readonly totalDurationSec = this.cues.reduce((sum, cue) => sum + cue.min, 0);
+
+  readonly timeCurrent = computed(() => this.formatTime(this.elapsedSec()));
+  readonly timeTotal = computed(() => this.formatTime(this.totalDurationSec));
+
+  readonly playButtonLabel = computed(() => {
+    if (this.playing()) {
+      return 'Pausar video';
+    }
+    if (this.finished()) {
+      return 'Volver a ver el video';
+    }
+    return 'Reproducir video';
+  });
 
   private runGeneration = 0;
   private autoplayAttempted = false;
+  private sceneEpochMs = 0;
+  private elapsedTicker: number | null = null;
 
   constructor() {
     if (!isPlatformBrowser(this.platformId)) {
@@ -53,7 +67,12 @@ export class FiadoHeroLoopComponent {
       this.runGeneration += 1;
       this.playing.set(false);
       this.speech.stop();
+      this.stopElapsedTicker();
     });
+  }
+
+  onVideoSurfaceClick(): void {
+    this.togglePlay();
   }
 
   togglePlay(): void {
@@ -64,6 +83,7 @@ export class FiadoHeroLoopComponent {
     if (this.finished()) {
       this.sceneIndex.set(0);
       this.finished.set(false);
+      this.elapsedSec.set(0);
     }
     void this.runPlayback();
   }
@@ -72,6 +92,8 @@ export class FiadoHeroLoopComponent {
     this.runGeneration += 1;
     this.playing.set(false);
     this.speech.stop();
+    this.syncElapsed();
+    this.stopElapsedTicker();
   }
 
   private async runPlayback(): Promise<void> {
@@ -83,6 +105,7 @@ export class FiadoHeroLoopComponent {
     const gen = ++this.runGeneration;
     this.playing.set(true);
     this.finished.set(false);
+    this.startElapsedTicker();
 
     let index = this.sceneIndex();
 
@@ -92,6 +115,8 @@ export class FiadoHeroLoopComponent {
       }
 
       this.sceneIndex.set(index);
+      this.sceneEpochMs = Date.now();
+      this.syncElapsed();
       const cue = this.cues[index];
       const started = Date.now();
 
@@ -109,6 +134,44 @@ export class FiadoHeroLoopComponent {
 
     this.playing.set(false);
     this.finished.set(true);
+    this.elapsedSec.set(this.totalDurationSec);
+    this.stopElapsedTicker();
+  }
+
+  private formatTime(totalSeconds: number): string {
+    const sec = Math.max(0, Math.floor(totalSeconds));
+    const minutes = Math.floor(sec / 60);
+    const seconds = sec % 60;
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  }
+
+  private startElapsedTicker(): void {
+    this.stopElapsedTicker();
+    this.syncElapsed();
+    this.elapsedTicker = window.setInterval(() => this.syncElapsed(), 250);
+  }
+
+  private stopElapsedTicker(): void {
+    if (this.elapsedTicker !== null) {
+      window.clearInterval(this.elapsedTicker);
+      this.elapsedTicker = null;
+    }
+  }
+
+  private syncElapsed(): void {
+    const idx = this.sceneIndex();
+    let base = 0;
+    for (let i = 0; i < idx; i += 1) {
+      base += this.cues[i].min;
+    }
+    const cue = this.cues[idx];
+    if (!cue) {
+      this.elapsedSec.set(this.totalDurationSec);
+      return;
+    }
+    const inScene = Math.min(cue.min, (Date.now() - this.sceneEpochMs) / 1000);
+    const next = Math.min(this.totalDurationSec, base + inScene);
+    this.elapsedSec.set(next);
   }
 
   private waitMs(seconds: number): Promise<void> {
@@ -133,6 +196,7 @@ export class FiadoHeroLoopComponent {
         this.autoplayAttempted = true;
         this.sceneIndex.set(0);
         this.finished.set(false);
+        this.elapsedSec.set(0);
         void this.runPlayback();
       },
       { threshold: 0.35 },

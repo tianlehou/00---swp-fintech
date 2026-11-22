@@ -1,41 +1,55 @@
 <div
-  class="loop-stage"
+  class="loop-stage fiado-css-video"
   [class.is-playing]="playing()"
   [class.is-finished]="finished()"
   [attr.data-view]="currentView()"
-  role="img"
-  [attr.aria-label]="subtitle()"
+  role="region"
+  aria-label="Video: cómo funciona Fiado Digital"
 >
-  <div class="phone-frame" aria-hidden="true">
-  @for (cue of cues; track cue.view; let i = $index) {
-    <img
-      class="loop-slide"
-      [class.is-active]="sceneIndex() === i"
-      [src]="cue.image"
-      [alt]="cue.t"
-      width="390"
-      height="844"
-      loading="eager"
-      decoding="async"
-    />
-  }
-  </div>
-
-  <div class="loop-chrome">
-    <p class="loop-caption" aria-live="polite">{{ subtitle() }}</p>
-    <div class="loop-meter" aria-hidden="true">
-      <span class="loop-meter-fill" [style.width.%]="progressPct()"></span>
+  <div
+    class="phone-frame video-screen"
+    [style.--scene-sec]="currentCue().min + 's'"
+    (click)="onVideoSurfaceClick()"
+  >
+    <div class="video-frames" aria-hidden="true">
+      @for (cue of cues; track cue.view; let i = $index) {
+        <img
+          class="video-frame loop-slide"
+          [class.is-active]="sceneIndex() === i"
+          [class.is-past]="i < sceneIndex()"
+          [src]="cue.image"
+          [alt]="cue.t"
+          width="390"
+          height="844"
+          loading="eager"
+          decoding="async"
+        />
+      }
     </div>
-    <div class="loop-controls">
-      <button type="button" class="loop-btn" (click)="togglePlay()">
-        @if (playing()) {
-          Pausar
-        } @else if (finished()) {
-          Volver a ver
-        } @else {
-          Reproducir
-        }
-      </button>
+
+    <div class="loop-scrim" aria-hidden="true"></div>
+
+    <button
+      type="button"
+      class="loop-play"
+      [attr.aria-label]="playButtonLabel()"
+      (click)="togglePlay(); $event.stopPropagation()"
+    >
+      @if (playing()) {
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="6" y="5" width="4" height="14" rx="1" />
+          <rect x="14" y="5" width="4" height="14" rx="1" />
+        </svg>
+      } @else {
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8 5v14l11-7.5z" />
+        </svg>
+      }
+    </button>
+
+    <div class="loop-bottom-chrome">
+      <p class="loop-caption-in" aria-live="polite">{{ subtitle() }}</p>
+      <span class="loop-time" aria-hidden="true">{{ timeCurrent() }} / {{ timeTotal() }}</span>
     </div>
   </div>
 </div>
