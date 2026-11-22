@@ -1,11 +1,7 @@
-v1.00.001 2026-11-22 10h:14m feat(landing): prototipo Fiado Digital con pitch y motion
+v1.00.002 2026-11-22 10h:23m fix(vercel): build en Vercel y environments en repo
 
 Lista de cambios:
-- Landing Angular 19 + SSR con el contenido de resumen.md (hero, cinco pasos, fintech, monetización)
-- Motion y estilos alineados al patrón de Genkidamás (landing-motion, paneles con scroll)
-- Reglas, skills y memorias del agente copiados en .cursor/
-- PRODUCT.md, README y arte del hero (fiado-hero-scene) para el prototipo de pitch
-
-Cambios estructurales:
-- Esqueleto app (rutas, header, gk-button) y public/app-version.json
-- .gitignore ampliado (sin dist, .angular/cache ni node_modules)
+- vercel.json con installCommand, salida browser e index.csr.html
+- Script de build con ruta explícita al CLI de Angular y Node >= 20
+- environment.ts y environment.prod.ts sin secretos para el build de producción
+- Versión v1.00.002 en APP_VERSION y public/app-version.json
